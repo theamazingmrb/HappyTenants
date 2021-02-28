@@ -3,7 +3,7 @@ const db = require("../models");
 const User = db.user;
 const Building = db.building;
 
-exports.newBuilding = (req, res) => {
+exports.create = (req, res) => {
   const building = new Building({
     name: req.body.name,
     description: req.body.description,
@@ -85,4 +85,14 @@ exports.update = (req, res) => {
               res.status(200).send({ message: "Update Successful"})
         }
     )
+}
+
+exports.delete = (req, res) => {
+    Building.findOneAndDelete({_id: req.body.building}).exec((err, building) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        res.status(200).send({  message: "Building deleted" });
+    })
 }
