@@ -10,6 +10,6 @@ db.role = require("./role.model");
 db.ticket = require("./ticket.model");
 db.user = require("./user.model");
 
-db.ROLES = ["user", "admin", "moderator"];
+db.ROLES = ["manager", "tenant", "maintenance"];
 
 module.exports = db;
