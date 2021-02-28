@@ -19,7 +19,8 @@ const Role = db.role;
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false 
   })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
@@ -38,6 +39,8 @@ app.get("/", (req, res) => {
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
+require('./app/routes/building.routes')(app);
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
