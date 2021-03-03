@@ -10,15 +10,20 @@ module.exports = function(app) {
     next();
   });
 
-  //create ticket
-  app.post(
-    "/api/auth/signup",
-    [
-      verifySignUp.checkDuplicateUsernameOrEmail,
-      verifySignUp.checkRolesExisted
-    ],
-    controller.signup
-  );
+ 
+  // GET
+  // all
+  app.get("/api/tickets", controller.getAll);
+  // one
+  app.get("/api/ticket", controller.getTicket);
 
-  app.post("/api/auth/signin", controller.signin);
+  // Create
+  app.post("/api/ticket", [authJwt.verifyToken], controller.create);
+
+  // Update
+  app.put("/api/ticket", [authJwt.verifyToken], controller.update);
+  
+  // Deletes
+  app.delete("/api/ticket", [authJwt.verifyToken, authJwt.isManager], controller.delete);
+  
 };

@@ -2,6 +2,7 @@ const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
+const Building = db.building;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -17,6 +18,17 @@ exports.signup = (req, res) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
+    }
+    if (req.body.roles.includes("tenant")){
+      Building.findByIdAndUpdate({_id: req.body.building}).then(building => {
+        building.tenants.addToSet(user._id)
+        building.save( err=> {
+          if(err) {
+            res.status(500).send({
+            message: err })
+        }
+        })
+      })
     }
 
     if (req.body.roles) {

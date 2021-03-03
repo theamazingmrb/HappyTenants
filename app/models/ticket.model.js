@@ -9,23 +9,29 @@ const Ticket = mongoose.model(
               ref: "Building"
             }
         ],
-    description: String,
-    image: String,
-    maintenance: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-      }
-    ],
-    maintenanceNotes: [],
-    tenant: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-      }
-    ],
-    tenantNotes: []
-  })
-);
+        createdBy: [
+          {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "User"
+            }
+        ],
+      description: String,
+      image: String,
+      maintenance: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User"
+       }
+      ],
+      maintenanceNotes: [],
+      tenant: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User"
+        }
+      ],
+      tenantNotes: []
+    })
+  );
 
 module.exports = Ticket;
