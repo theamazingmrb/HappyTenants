@@ -48,7 +48,7 @@ exports.getAll = (req, res) => {
             res.status(500).send({ message: "No buildings Currents in the DB" });
             return;
           }
-          res.status(200).send({  buldings: buildings });
+          res.status(200).send({  buildings: buildings });
     })
 }
 
@@ -63,7 +63,7 @@ exports.getBuilding = (req, res) => {
             res.status(500).send({ message: "No buildings Currents in the DB" });
             return;
         }
-        res.status(200).send({  bulding: building });
+        res.status(200).send({  building: building });
     })
 }
 
