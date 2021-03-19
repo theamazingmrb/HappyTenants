@@ -24,8 +24,15 @@ const Ticket = mongoose.model(
       },
     ],
     maintenanceNotes: [],
+    maintenanceWindow: {},
     status: String,
     tenant: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    tenantContact: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

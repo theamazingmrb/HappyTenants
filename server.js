@@ -1,9 +1,9 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const dbConfig = require("./app/config/db.config")
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const dbConfig = require('./app/config/db.config');
 const app = express();
-require('dotenv').config()
+require('dotenv').config();
 
 app.use(cors());
 
@@ -13,34 +13,36 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = require("./app/models");
+const db = require('./app/models');
 const Role = db.role;
-const dbURI = process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`
+const dbURI =
+  process.env.MONGODB_URI ||
+  `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`;
 db.mongoose
   .connect(dbURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false 
+    useFindAndModify: false,
   })
   .then(() => {
-    console.log("Successfully connect to MongoDB.");
+    console.log('Successfully connect to MongoDB.');
     initial();
   })
-  .catch(err => {
-    console.error("Connection error", err);
+  .catch((err) => {
+    console.error('Connection error', err);
     process.exit();
-});
-  
+  });
+
 // simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Happy Tenants." });
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to Happy Tenants.' });
 });
 
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/building.routes')(app);
-
+require('./app/routes/ticket.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -52,30 +54,30 @@ function initial() {
   Role.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       new Role({
-        name: "manager"
-      }).save(err => {
+        name: 'manager',
+      }).save((err) => {
         if (err) {
-          console.log("error", err);
+          console.log('error', err);
         }
 
         console.log("added 'manager' to roles collection");
       });
 
       new Role({
-        name: "tenant"
-      }).save(err => {
+        name: 'tenant',
+      }).save((err) => {
         if (err) {
-          console.log("error", err);
+          console.log('error', err);
         }
 
         console.log("added 'tenant' to roles collection");
       });
 
       new Role({
-        name: "maintenance"
-      }).save(err => {
+        name: 'maintenance',
+      }).save((err) => {
         if (err) {
-          console.log("error", err);
+          console.log('error', err);
         }
 
         console.log("added 'maintenance' to roles collection");
