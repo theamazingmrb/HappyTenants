@@ -23,7 +23,7 @@ exports.create = (req, res) => {
   console.log('Test works');
 };
 exports.createTicket = (req, res) => {
-  console.log(req.body);
+  console.log(req);
   const ticket = new Ticket({
     building: req.body.building,
     createdBy: req.userId,
