@@ -1,19 +1,19 @@
-const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config.js");
-const db = require("../models");
+const jwt = require('jsonwebtoken');
+const config = require('../config/auth.config.js');
+const db = require('../models');
 const User = db.user;
 const Role = db.role;
 
 verifyToken = (req, res, next) => {
-  let token = req.headers["x-access-token"];
-
+  let token = req.headers['x-access-token'];
+  log(req.body);
   if (!token) {
-    return res.status(403).send({ message: "No token provided!" });
+    return res.status(403).send({ message: 'No token provided!' });
   }
 
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
-      return res.status(401).send({ message: "Unauthorized!" });
+      return res.status(401).send({ message: 'Unauthorized!' });
     }
     req.userId = decoded.id;
     next();
@@ -29,7 +29,7 @@ isManager = (req, res, next) => {
 
     Role.find(
       {
-        _id: { $in: user.roles }
+        _id: { $in: user.roles },
       },
       (err, roles) => {
         if (err) {
@@ -38,13 +38,13 @@ isManager = (req, res, next) => {
         }
 
         for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "manager") {
+          if (roles[i].name === 'manager') {
             next();
             return;
           }
         }
 
-        res.status(403).send({ message: "Require Manager Role!" });
+        res.status(403).send({ message: 'Require Manager Role!' });
         return;
       }
     );
@@ -60,7 +60,7 @@ isTenant = (req, res, next) => {
 
     Role.find(
       {
-        _id: { $in: user.roles }
+        _id: { $in: user.roles },
       },
       (err, roles) => {
         if (err) {
@@ -69,13 +69,13 @@ isTenant = (req, res, next) => {
         }
 
         for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "tenant") {
+          if (roles[i].name === 'tenant') {
             next();
             return;
           }
         }
 
-        res.status(403).send({ message: "Require Tenant Role!" });
+        res.status(403).send({ message: 'Require Tenant Role!' });
         return;
       }
     );
