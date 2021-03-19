@@ -32,12 +32,7 @@ const Ticket = mongoose.model(
         ref: 'User',
       },
     ],
-    tenantContact: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      },
-    ],
+    tenantContact: String,
     tenantNotes: [],
     unit: String,
   })
