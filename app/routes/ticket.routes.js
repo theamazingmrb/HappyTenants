@@ -23,9 +23,5 @@ module.exports = function (app) {
   // app.put('/api/ticket', [authJwt.verifyToken], controller.update);
 
   // // Deletes
-  app.delete(
-    '/api/ticket',
-    [authJwt.verifyToken, authJwt.isManager],
-    controller.delete
-  );
+  app.delete('/api/ticket', [authJwt.verifyToken], controller.delete);
 };
