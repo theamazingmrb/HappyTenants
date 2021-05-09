@@ -53,10 +53,22 @@ exports.signup = (req, res) => {
               return;
             }
 
+            var token = jwt.sign({ id: user.id }, config.secret, {
+              expiresIn: 86400, // 24 hours
+            });
+
+            let authorities = user.roles.map(
+              (role) => `ROLE_${role.name.toUpperCase()}`
+            );
+
             res.send({
               message: 'User was registered successfully!',
               status: 'ok',
               username: user.username,
+              id: user._id,
+              email: user.email,
+              roles: authorities,
+              accessToken: token,
             });
           });
         }
@@ -113,12 +125,9 @@ exports.signin = (req, res) => {
         expiresIn: 86400, // 24 hours
       });
 
-      var authorities = [];
-
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push('ROLE_' + user.roles[i].name.toUpperCase());
-      }
-      console.log('signed in');
+      let authorities = user.roles.map(
+        (role) => `ROLE_${role.name.toUpperCase()}`
+      );
       res.status(200).send({
         id: user._id,
         username: user.username,
