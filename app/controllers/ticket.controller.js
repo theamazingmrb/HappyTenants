@@ -11,7 +11,7 @@ exports.getAll = (req, res) => {
       return;
     }
     if (!tickets[0]) {
-      res.status(500).send({ message: 'No tickets in the DB' });
+      res.status(200).send({ message: 'No tickets in the DB' });
       return;
     }
     console.log(tickets);
