@@ -56,6 +56,7 @@ exports.signup = (req, res) => {
             res.send({
               message: 'User was registered successfully!',
               status: 'ok',
+              username: user.username,
             });
           });
         }
