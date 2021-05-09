@@ -102,7 +102,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  Ticket.findOneAndDelete({ _id: req.body.ticket }).exec((err, ticket) => {
+  Ticket.findOneAndDelete({ _id: req.params.ticketId }).exec((err, ticket) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
