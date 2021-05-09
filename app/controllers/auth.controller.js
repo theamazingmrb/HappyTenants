@@ -57,7 +57,7 @@ exports.signup = (req, res) => {
               expiresIn: 86400, // 24 hours
             });
 
-            let authorities = user.roles.map(
+            let authorities = roles.map(
               (role) => `ROLE_${role.name.toUpperCase()}`
             );
 
