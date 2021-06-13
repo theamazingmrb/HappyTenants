@@ -87,9 +87,16 @@ exports.update = (req, res) => {
     { _id: req.body.ticket },
     {
       building: req.body.building,
-      description: req.body.description,
-      tenant: req.body.tenant,
       createdBy: req.userId,
+      description: req.body.description,
+      status: req.body.status,
+      tenantContact: req.body.tenantContact,
+      tenantNotes: req.body.tenantNotes,
+      unit: req.body.unit,
+      maintenanceWindow: {
+        start: req.body.start,
+        end: req.body.end,
+      },
     },
     (err) => {
       if (err) {
