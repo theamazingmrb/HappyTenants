@@ -19,8 +19,8 @@ module.exports = function (app) {
   // Create
   app.post('/api/ticket', [authJwt.verifyToken], controller.createTicket);
 
-  // // Update
-  // app.put('/api/ticket', [authJwt.verifyToken], controller.update);
+  // Update
+  app.put('/api/ticket', [authJwt.verifyToken], controller.update);
 
   // // Deletes
   app.delete('/api/ticket/:ticketId', [authJwt.verifyToken], controller.delete);
