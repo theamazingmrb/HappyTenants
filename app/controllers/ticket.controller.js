@@ -100,6 +100,7 @@ exports.update = (req, res) => {
     },
     (err) => {
       if (err) {
+        console.log(err);
         res.status(500).send({ message: err });
         return;
       }
