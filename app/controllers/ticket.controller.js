@@ -84,7 +84,7 @@ exports.getTicket = (req, res) => {
 
 exports.update = (req, res) => {
   Ticket.findByIdAndUpdate(
-    { _id: req.body.ticket },
+    { id: req.body.ticket },
     {
       building: req.body.building,
       createdBy: req.userId,
