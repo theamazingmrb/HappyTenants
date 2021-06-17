@@ -19,7 +19,7 @@ exports.getAll = (req, res) => {
 
 exports.getAllMaintenance = (req, res) => {
   User.find({})
-    .populuate('roles')
+    .populate('roles')
     .exec((err, users) => {
       if (err) {
         res.status(500).send({ message: err });
