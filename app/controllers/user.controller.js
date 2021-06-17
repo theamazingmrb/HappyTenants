@@ -29,8 +29,10 @@ exports.getAllMaintenance = (req, res) => {
         res.status(500).send({ message: 'No users in the DB' });
         return;
       }
-      let filteredUsers = users.map((user) => user.roles.includes('manager'));
-      res.status(200).send({ users: users });
+      let filteredUsers = users.map((user) =>
+        user.roles.find((it) => it.name == 'maintenance')
+      );
+      res.status(200).send({ filteredUsers });
     });
 };
 
