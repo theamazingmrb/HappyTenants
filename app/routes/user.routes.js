@@ -11,4 +11,5 @@ module.exports = function (app) {
   });
 
   app.get('/api/users/all', controller.getAll);
+  app.get('/api/maintenance', controller.getAllMaintenance);
 };
