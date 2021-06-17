@@ -20,6 +20,7 @@ exports.signup = (req, res) => {
       res.status(500).send({ message: err });
       return;
     }
+    // if user is a tenant add tenant to building
     if (req.body.roles.includes('tenant')) {
       Building.findByIdAndUpdate({ _id: req.body.building }).then(
         (building) => {
@@ -74,7 +75,7 @@ exports.signup = (req, res) => {
         }
       );
     } else {
-      Role.findOne({ name: 'user' }, (err, role) => {
+      Role.findOne({ name: 'tenant' }, (err, role) => {
         if (err) {
           res.status(500).send({ message: err });
           return;
